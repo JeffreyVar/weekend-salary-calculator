@@ -4,3 +4,6 @@ function submitForm(event) {
     event.preventDefault();
 }
 
+function removeRow(event) {
+    event.target.closest('tr').remove();
+}
