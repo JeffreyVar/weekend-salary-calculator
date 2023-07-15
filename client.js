@@ -1,6 +1,5 @@
 let totalSalaries = [];
-let totalAmount = 0;
-let totalMonthly = totalAmount/12;
+let totalMonthly = 0;
 let currentIndex = 0;
 
 function submitForm(event) {
@@ -34,16 +33,11 @@ function submitForm(event) {
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
     } 
-    totalAmount = sum;
-    console.log(totalAmount);
+    totalMonthly = sum / 12;
+    // console.log(totalAmount);
     console.log(totalMonthly);
-    
+    document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 }
-
-// document.querySelector('#monthly-amount').innerHTML = totalMonthly;
-    document.querySelector('#monthly-amount').innerHTML = totalAmount;
-
-console.log(totalSalaries);
 
 function removeRow(event) {
     event.target.closest('tr').remove();
