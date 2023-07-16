@@ -1,6 +1,5 @@
 let totalSalaries = [];
 let totalMonthly = 0;
-let currentIndex = 0;
 
 function submitForm(event) {
     console.log('submitForm');
@@ -12,7 +11,7 @@ function submitForm(event) {
     let idNumber = document.querySelector('#id').value;
     let jobTitle = document.querySelector('#title').value;
     let salary = Number(document.querySelector('#salary').value);
-    let delButton = `<button onClick="removeRow(event)" >Delete</button>`
+    let delButton = `<button id="delete" onClick="removeRow(${salary})" >Delete</button>`
     // Find the tbody on the page so that we can append to it
     let employeeTable = document.querySelector('#employeeList');
     employeeTable.innerHTML += `
@@ -25,7 +24,6 @@ function submitForm(event) {
             <td>${delButton}</td>
         </tr>
     `;
-    currentIndex += 1;
 
     totalSalaries.push(salary);
     
@@ -39,30 +37,30 @@ function submitForm(event) {
 
      if (totalMonthly > 20000) {
          let monthlyRedDiv = document.querySelector('#monthly-amount');
-         monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="background-color:red">$${totalMonthly}</span>`;
+         monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="color:white; background-color:#9f0000">$${totalMonthly}</span>`;
         }
-    
-
 }
 
-function removeRow(event) {
-    event.target.closest('tr').remove();
-    totalSalaries.pop(salary);
+function removeRow(salaryToRemove) {
+    let row = event.target.closest('tr').remove();
+    if (row) {
+        row.remove();
+      }
+
+    let i = totalSalaries.indexOf(salaryToRemove);
+    if (i >= 0) {
+      totalSalaries.splice(i, 1);
+    }
 
     let sum = 0;
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
     } 
     totalMonthly = (sum / 12).toFixed(2);
-
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 
     if (totalMonthly > 20000) {
         let monthlyRedDiv = document.querySelector('#monthly-amount');
-        monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="background-color:red">$${totalMonthly}</span>`;
+        monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="color:white; background-color:#9f0000">$${totalMonthly}</span>`;
        }
 }
-
-// function removeRow(event) {
-//     event.target.closest('tr').remove();
-// }
