@@ -1,19 +1,21 @@
+// Declares these global variables that will be used in the functions below
 let totalSalaries = [];
 let totalMonthly = 0;
 
+// This function handles the form submit event
 function submitForm(event) {
-    console.log('submitForm');
     // Stop the page from refreshing
     event.preventDefault();
     let firstName = document.querySelector('#first').value;
-    //! .value always returns a string, for a number use Number(string)
     let lastName = document.querySelector('#last').value;
     let idNumber = document.querySelector('#id').value;
     let jobTitle = document.querySelector('#title').value;
+    // Returns this as number instead of a string
     let salary = Number(document.querySelector('#salary').value);
+    // Appends to DOM upon submit event, id allows for button styling in CSS
     let delButton = `<button id="delete" onClick="removeRow(${salary})" >Delete</button>`
-    // Find the tbody on the page so that we can append to it
     let employeeTable = document.querySelector('#employeeList');
+    // Appends this rowm to DOM upon submit event
     employeeTable.innerHTML += `
         <tr>
             <td>${firstName}</td>
@@ -25,42 +27,53 @@ function submitForm(event) {
         </tr>
     `;
 
+    // Adds submitted salary into array
     totalSalaries.push(salary);
     
+    // Adds salaries in array
     let sum = 0;
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
     } 
+    // Divides sum by 12 to find monthly cost and round to 100th place
     totalMonthly = (sum / 12).toFixed(2);
-
+    // Appends monthly cost to DOM
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 
-     if (totalMonthly > 20000) {
-         let monthlyRedDiv = document.querySelector('#monthly-amount');
-         monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="color:white; background-color:#9f0000">$${totalMonthly}</span>`;
+    // Turns background of monthly cost Red (and text White for better readability) if over $20000
+    if (totalMonthly > 20000) {
+        let monthlyRedDiv = document.querySelector('#monthly-amount');
+        monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="color:white; background-color:#9f0000">$${totalMonthly}</span>`;
         }
 }
 
+// This functions removes both the row from the DOM and the salary of the deleted row from the monthly cost
 function removeRow(salaryToRemove) {
     let row = event.target.closest('tr').remove();
     if (row) {
         row.remove();
-      }
-
+        }
+    
+    // Identifies index in array to be removed 
     let i = totalSalaries.indexOf(salaryToRemove);
     if (i >= 0) {
-      totalSalaries.splice(i, 1);
-    }
+        // Removes that item only from array
+        totalSalaries.splice(i, 1);
+        }
 
+    // Recalculates sum of salaries in array
     let sum = 0;
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
-    } 
+        }
+    // Divides sum by 12 to find monthly cost and round to 100th place
     totalMonthly = (sum / 12).toFixed(2);
+    // Appends updated monthly to DOM
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 
+    // Turns background of monthly cost Red (and text White for better readability) if over $20000
     if (totalMonthly > 20000) {
         let monthlyRedDiv = document.querySelector('#monthly-amount');
         monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="color:white; background-color:#9f0000">$${totalMonthly}</span>`;
-       }
+        }
 }
