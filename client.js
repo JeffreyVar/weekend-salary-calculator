@@ -33,7 +33,7 @@ function submitForm(event) {
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
     } 
-    totalMonthly = sum / 12;
+    totalMonthly = (sum / 12).toFixed(2);
 
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 
@@ -53,7 +53,7 @@ function removeRow(event) {
     for (let i = 0; i < totalSalaries.length; i++) {
         sum += totalSalaries[i];
     } 
-    totalMonthly = sum / 12;
+    totalMonthly = (sum / 12).toFixed(2);
 
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
 
