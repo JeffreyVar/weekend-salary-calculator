@@ -41,8 +41,28 @@ function submitForm(event) {
          let monthlyRedDiv = document.querySelector('#monthly-amount');
          monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="background-color:red">$${totalMonthly}</span>`;
         }
+    
+
 }
 
 function removeRow(event) {
     event.target.closest('tr').remove();
+    totalSalaries.pop(salary);
+
+    let sum = 0;
+    for (let i = 0; i < totalSalaries.length; i++) {
+        sum += totalSalaries[i];
+    } 
+    totalMonthly = sum / 12;
+
+    document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
+
+    if (totalMonthly > 20000) {
+        let monthlyRedDiv = document.querySelector('#monthly-amount');
+        monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="background-color:red">$${totalMonthly}</span>`;
+       }
 }
+
+// function removeRow(event) {
+//     event.target.closest('tr').remove();
+// }
