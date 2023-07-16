@@ -21,7 +21,7 @@ function submitForm(event) {
             <td>${lastName}</td>
             <td>${idNumber}</td>
             <td>${jobTitle}</td>
-            <td>${salary}</td>
+            <td>$${salary}</td>
             <td>${delButton}</td>
         </tr>
     `;
@@ -34,9 +34,13 @@ function submitForm(event) {
         sum += totalSalaries[i];
     } 
     totalMonthly = sum / 12;
-    // console.log(totalAmount);
-    console.log(totalMonthly);
+
     document.querySelector('#monthly-amount').innerHTML = `$${totalMonthly}`;
+
+     if (totalMonthly > 20000) {
+         let monthlyRedDiv = document.querySelector('#monthly-amount');
+         monthlyRedDiv.innerHTML = `<span id="monthly-amount" style="background-color:red">$${totalMonthly}</span>`;
+        }
 }
 
 function removeRow(event) {
