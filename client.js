@@ -49,6 +49,8 @@ function submitForm(event) {
 
 // This functions removes both the row from the DOM and the salary of the deleted row from the monthly cost
 function removeRow(salaryToRemove) {
+    // removeRow must accept an argument now on order to remove the specific salary in the row
+    // This conditional allows removeRow function to accept an argument and still remove the closest row
     let row = event.target.closest('tr').remove();
     if (row) {
         row.remove();
